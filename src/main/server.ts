@@ -6,5 +6,5 @@ const port = process.env.PORT || 3333;
 const server = http.createServer(app);
 
 server.listen(port, async () => {
-    console.log('Server is up!');
+    console.log(`✔️ Server Conectado na porta ${port}`);
 });

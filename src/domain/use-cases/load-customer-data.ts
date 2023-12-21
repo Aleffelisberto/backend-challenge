@@ -5,5 +5,5 @@ export interface LoadCustomerData {
 }
 
 export namespace LoadCustomerData {
-    export type Result = CustomerDataEntity;
+    export type Result = CustomerDataEntity | null;
 }

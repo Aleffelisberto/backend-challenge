@@ -1,0 +1,26 @@
+version: '3'
+services:
+    redis:
+        container_name: 'redis'
+        image: redis:alpine
+        restart: always
+        ports:
+            - '6379:6379'
+        volumes:
+            - cache:/data
+    rabbitmq:
+        image: rabbitmq:3-management-alpine
+        container_name: 'rabbitmq'
+        ports:
+            - 5672:5672
+            - 15672:15672
+        volumes:
+            - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+            - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+        container_name: elasticsearch
+        environment:
+            - discovery.type=single-node
+        ports:
+            - '9200:9200'

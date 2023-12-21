@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
-import { ConsulaApiInterface, ConsulaApiTokenData, ConsultaApiBenefitData } from './consulta-api-interface';
+import { ConsultaApiServiceInterface, ConsulaApiTokenData, ConsultaApiBenefitData } from './consulta-api-interface';
 
-export default class ConsultaApiService implements ConsulaApiInterface {
+export default class ConsultaApiService implements ConsultaApiServiceInterface {
     public api: AxiosInstance;
 
     constructor() {

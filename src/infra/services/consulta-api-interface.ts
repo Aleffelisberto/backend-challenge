@@ -1,4 +1,4 @@
-export interface ConsulaApiInterface {
+export interface ConsultaApiServiceInterface {
     generateJwtToken(): Promise<ConsulaApiTokenData>;
     getBenifitsDataByCpf(cpf: string): Promise<ConsultaApiBenefitData>;
 }
