@@ -1,4 +1,4 @@
-export interface CustomerDataEntity {
-    benefitNumber: string;
-    benefitTypeCode: string;
+export interface BenefitEntity {
+    numero_beneficio: string;
+    codigo_tipo_beneficio: string;
 }

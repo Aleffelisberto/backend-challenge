@@ -1,13 +1,21 @@
-FROM node:alpine
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm install
-
 COPY . .
 
-EXPOSE 3333
+RUN npm install
+RUN npm run build
 
-CMD ["npm", "start"]
+FROM node:20-alpine AS final
+
+WORKDIR /app
+
+COPY --from=builder ./app/build ./build
+COPY package.json .
+COPY package-lock.json .
+
+RUN npm install --production
+
+# setting a delay due to connections
+CMD sh -c 'sleep 15 && npm start'

@@ -1,3 +1,3 @@
 export interface EnqueueCpf {
-    enqueue: (cpf: string[]) => Promise<void>;
+    enqueue: (cpf: string) => Promise<void>;
 }

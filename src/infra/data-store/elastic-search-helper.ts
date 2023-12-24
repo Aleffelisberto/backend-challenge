@@ -1,32 +1,32 @@
-import { Client } from '@elastic/elasticsearch';
+import { Client, errors } from '@elastic/elasticsearch';
+import 'dotenv/config';
 
 export type ElasticIndices = 'cpfs';
 
 class ElasticSearchHelper {
+    private nodeUrl: string | undefined;
     private client = null as unknown as Client;
-    private cloudId: string;
-
-    constructor() {
-        this.cloudId = process.env.ELASTIC_CLOUD_ID;
-    }
 
     public async connect() {
+        this.nodeUrl = process.env.ELASTIC_NODE_URL;
+        const elasticClient = new Client({
+            node: this.nodeUrl,
+        });
+
         try {
-            const elasticClient = new Client({
-                cloud: {
-                    id: this.cloudId,
-                },
-                auth: {
-                    username: process.env.ELASTIC_USERNAME,
-                    password: process.env.ELASTIC_PASSWORD,
-                },
+            await elasticClient.ping();
+            const cpfsIndexExists = await elasticClient.indices.exists({
+                index: 'cpfs',
             });
-
-            await elasticClient.indices.create({ index: 'cpfs' });
-
+            if (!cpfsIndexExists) {
+                await elasticClient.indices.create({ index: 'cpfs' });
+            }
             this.client = elasticClient;
-        } catch (error: unknown) {
-            console.error('ELASTIC SEARCH CONNECTION ERROR: ', (<Error>error).message);
+
+            console.log(`✔️ ElasticSearch conectado: ${this.nodeUrl}`);
+        } catch (error) {
+            console.error('Erro ao conectar ao Elasticsearch:', error);
+            throw new Error('Connection failed');
         }
     }
 
@@ -37,10 +37,14 @@ class ElasticSearchHelper {
         });
     }
 
-    public async getById(index: ElasticIndices, id: string) {
-        return this.client.get({
+    public async searchByCpf(index: ElasticIndices, cpf: string) {
+        return this.client.search({
             index,
-            id,
+            query: {
+                term: {
+                    cpf,
+                },
+            },
         });
     }
 }

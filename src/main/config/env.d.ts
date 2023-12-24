@@ -7,11 +7,9 @@ declare global {
             CONSULTA_API_PASSWORD: string;
             CONSULTA_API_URL: string;
             RABBIT_URL: string;
-            ELASTIC_CLOUD_ID: string;
-            ELASTIC_USERNAME: string;
-            ELASTIC_PASSWORD: string;
+            ELASTIC_NODE_URL: string;
             REDIS_URL: string;
-            ENABLE_CONSUMER: string;
+            ENABLE_CONSUMER: boolean;
         }
     }
 }

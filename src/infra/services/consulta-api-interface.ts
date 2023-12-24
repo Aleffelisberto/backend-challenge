@@ -1,14 +1,17 @@
 export interface ConsultaApiServiceInterface {
     generateJwtToken(): Promise<ConsulaApiTokenData>;
-    getBenifitsDataByCpf(cpf: string): Promise<ConsultaApiBenefitData>;
+    getBenifitsDataByCpf(cpf: string, jwtToken: string): Promise<ConsultaApiBenefitData>;
 }
 
 export interface ConsulaApiTokenData {
-    tokenJwt: string;
+    token: string;
     expiresIn: string;
 }
 
 export interface ConsultaApiBenefitData {
-    benefitNumber: string;
-    benefitTypeCode: string;
+    cpf: string;
+    beneficios: {
+        numero_beneficio: string;
+        codigo_tipo_beneficio: string;
+    }[];
 }

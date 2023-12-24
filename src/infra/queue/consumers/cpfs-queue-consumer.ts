@@ -1,4 +1,4 @@
-import { makeLoadCustomerDataUseCase } from '@main/factories/use-cases/load-customer-data-factory';
+import { makeLoadBenefitsUseCase } from '@main/factories/use-cases/load-benefits-factory';
 import { CpfQueueMessage } from '../rabbit-helper';
 
 export interface CpfsQueueMessage {
@@ -7,14 +7,8 @@ export interface CpfsQueueMessage {
 
 export class CpfsQueueConsumer {
     async consume(message: CpfQueueMessage): Promise<boolean> {
-        try {
-            await makeLoadCustomerDataUseCase().load(message.cpf);
+        await makeLoadBenefitsUseCase().load(message.cpf);
 
-            return true;
-        } catch (error: unknown) {
-            console.error(error);
-
-            return false;
-        }
+        return true;
     }
 }

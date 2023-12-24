@@ -1,22 +1,10 @@
-import axios, { AxiosInstance } from 'axios';
+import Axios from 'axios';
 import { ConsultaApiServiceInterface, ConsulaApiTokenData, ConsultaApiBenefitData } from './consulta-api-interface';
 
 export default class ConsultaApiService implements ConsultaApiServiceInterface {
-    public api: AxiosInstance;
-
-    constructor() {
-        this.api = this.createApiInstance();
-    }
-
-    public createApiInstance(): AxiosInstance {
-        return axios.create({
-            baseURL: process.env.CONSULTA_API_URL,
-        });
-    }
-
     async generateJwtToken(): Promise<ConsulaApiTokenData> {
-        const response = await this.api.post(
-            `/api/v1/token`,
+        const response = await Axios.post(
+            `${process.env.CONSULTA_API_URL}/api/v1/token`,
             {
                 username: process.env.CONSULTA_API_USERNAME,
                 password: process.env.CONSULTA_API_PASSWORD,
@@ -25,17 +13,18 @@ export default class ConsultaApiService implements ConsultaApiServiceInterface {
         );
 
         return {
-            tokenJwt: response.data.token,
-            expiresIn: response.data.expiresIn,
+            token: response.data.data.token,
+            expiresIn: response.data.data.expiresIn,
         };
     }
 
-    async getBenifitsDataByCpf(cpf: string): Promise<ConsultaApiBenefitData> {
-        const response = await this.api.get(`/api/v1/inss/consulta-beneficios?cpf=${cpf}`);
+    async getBenifitsDataByCpf(cpf: string, jwtToken: string): Promise<ConsultaApiBenefitData> {
+        const response = await Axios.get(`${process.env.CONSULTA_API_URL}/api/v1/inss/consulta-beneficios?cpf=${cpf}`, {
+            headers: {
+                Authorization: `Bearer ${jwtToken}`,
+            },
+        });
 
-        return {
-            benefitNumber: response.data.benefitNumber || 'qualquercoisa',
-            benefitTypeCode: response.data.benefitTypeCode || 'qualquercoisa',
-        };
+        return response.data.data;
     }
 }

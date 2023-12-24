@@ -15,11 +15,12 @@ export class EnqueueCpfHandler implements Handler {
             if (isRequestInvalid) {
                 return res.status(400).json({ error: isRequestInvalid.message });
             }
-            await this.enqueueCpfUseCase.enqueue(req.body.cpfs);
+            const { cpf } = req.body;
+            await this.enqueueCpfUseCase.enqueue(cpf);
 
-            return res.status(200).json({ result: req.body.cpfs });
+            return res.status(201).json({ cpf, message: 'enqueued' });
         } catch (error: unknown) {
-            return res.status(500).json({ message: (<Error>error).message });
+            return res.status(500).json({ message: 'internal server error' });
         }
     }
 }

@@ -1,14 +1,11 @@
 import { EnqueueCpfHandler } from '@infra/handlers/enqueue-cpf-handler';
-import { Validator } from '@presentation/protocols/validator';
 import { FieldRequirementValidator } from '@validations/field-requirement-validator';
 import { Validators } from '@validations/validators';
 import { makeEnqueueCpfUseCase } from '@main/factories/use-cases/enqueue-cpf-factory';
+import { CpfValidator } from '@validations/cpf-validator';
 
 export const makeEnqueueCpfValidator = (): Validators => {
-    const validators: Validator[] = [];
-    validators.push(new FieldRequirementValidator('cpfs'));
-
-    return new Validators(validators);
+    return new Validators([new FieldRequirementValidator('cpf'), new CpfValidator('cpf')]);
 };
 
 export const makeEnqueueCpfHandler = (): EnqueueCpfHandler => {

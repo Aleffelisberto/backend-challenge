@@ -4,9 +4,7 @@ import rabbitHelper from '@infra/queue/rabbit-helper';
 export class EnqueueCpfUseCase implements EnqueueCpf {
     constructor() {}
 
-    async enqueue(cpfs: string[]): Promise<void> {
-        for await (const cpf of cpfs) {
-            await rabbitHelper.sendCpfToQueue({ cpf });
-        }
+    async enqueue(cpf: string): Promise<void> {
+        await rabbitHelper.sendCpfToQueue({ cpf });
     }
 }
