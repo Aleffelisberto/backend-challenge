@@ -47,9 +47,9 @@ services:
             - CONSULTA_API_USERNAME=${CONSULTA_API_USERNAME}
             - CONSULTA_API_PASSWORD=${CONSULTA_API_PASSWORD}
             - CONSULTA_API_URL=${CONSULTA_API_URL}
-            - RABBIT_URL=${RABBIT_URL}
-            - ELASTIC_NODE_URL=${ELASTIC_NODE_URL}
-            - REDIS_URL=${REDIS_URL}
+            - RABBIT_URL=amqp://rabbitmq:5672
+            - ELASTIC_NODE_URL=http://elasticsearch:9200
+            - REDIS_URL=redis://redis:6379
             - ENABLE_CONSUMER=${ENABLE_CONSUMER}
         links:
             - rabbitmq
