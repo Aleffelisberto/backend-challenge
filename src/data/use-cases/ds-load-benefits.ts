@@ -1,4 +1,4 @@
-import { BenefitEntity } from '@domain/entities/customer-data';
+import { BenefitEntity } from '@domain/entities/benefit';
 import { unmaskCpf } from '@data/utils/unmask-cpf';
 import redisHelper from '@infra/data-store/redis-helper';
 import { ConsultaApiServiceInterface } from '@infra/services/consulta-api-interface';
