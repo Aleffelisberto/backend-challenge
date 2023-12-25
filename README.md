@@ -74,6 +74,8 @@ Este endpoint enfileira um CPF para posterior busca na API externa. Exemplo:
 curl -X POST -H "Content-Type: application/json" -d '{"cpf": "12345678900"}' http://localhost:3333/customer
 ```
 
+Uma colletion do Postman (`API-postman-collection.json`), com as rotas utilizadas no desafio também foi disponibilizada
+
 ## Testes
 
 Para executar os testes, utilize o seguinte comando:

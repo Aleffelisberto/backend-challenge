@@ -1,0 +1,51 @@
+{
+    "info": {
+        "_postman_id": "6e4cf14c-4c85-46be-a3a1-c7e1bd7fdc36",
+        "name": "API Desafio",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "21557034"
+    },
+    "item": [
+        {
+            "name": "GET dados do cliente",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{API_LOCAL}}/customer?cpf=433.510.120-12",
+                    "host": ["{{API_LOCAL}}"],
+                    "path": ["customer"],
+                    "query": [
+                        {
+                            "key": "cpf",
+                            "value": "433.510.120-12"
+                        }
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "POST cpfs",
+            "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"cpf\": \"433.510.120-12\"\n}",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    }
+                },
+                "url": {
+                    "raw": "{{API_LOCAL}}/customer",
+                    "host": ["{{API_LOCAL}}"],
+                    "path": ["customer"]
+                }
+            },
+            "response": []
+        }
+    ]
+}
